@@ -13,9 +13,15 @@ public class StudentRegistration {
 		System.out.println("Input student name");
 		student.setName(sc.nextLine());
 		System.out.println("Input student last name");
-		student.setLastName(sc.nextLine());		
+		student.setLastName(sc.nextLine());	
+		
 		System.out.println("Input student gender (male or female)");
-		student.setGender(sc.nextLine());	
+		String strEnum = sc.nextLine();
+		if (strEnum.equals("male") || strEnum.equals("male")) {
+			student.setGender(strEnum);
+		}else {
+			throw new WrongValueException("Wrong value entered!");			
+		}
 		
 		System.out.println("Input student id");		
 		if (sc.hasNextInt()) {

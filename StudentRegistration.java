@@ -2,12 +2,10 @@ package homework;
 
 import java.util.Scanner;
 
-public class StudentRegistration {	
-	Scanner sc = new Scanner(System.in);
+public class StudentRegistration {		
 	
-	
-	public Student createStudentAccount() throws WrongValueException {
-		
+	public static Student createStudentAccount() throws WrongValueException {
+		Scanner sc = new Scanner(System.in);		
 		Student student = new Student();
 		
 		System.out.println("Input student name");
@@ -17,7 +15,7 @@ public class StudentRegistration {
 		
 		System.out.println("Input student gender (male or female)");
 		String strEnum = sc.nextLine();
-		if (strEnum.equals("male") || strEnum.equals("male")) {
+		if (strEnum.equals("male") || strEnum.equals("female")) {
 			student.setGender(strEnum);
 		}else {
 			throw new WrongValueException("Wrong value entered!");			
@@ -37,7 +35,7 @@ public class StudentRegistration {
 		return student;		
 	} 
 	
-	public void createStudentAccountAndAddToGroup(Group group) throws WrongValueException {
+	public static void createStudentAccountAndAddToGroup(Group group) throws WrongValueException {
 		try {
 			group.addStudent(createStudentAccount());
 		} catch (GroupOverflowException e) {

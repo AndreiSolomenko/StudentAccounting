@@ -1,5 +1,8 @@
 package homework;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -20,6 +23,7 @@ public class Main {
 		Student student11 = new Student("Abraham", "Lincoln", Gender.MALE, 11, "first");
 		
 		Group group1 = new Group();
+		group1.setGroupName("first");
 		
 		try {
 			group1.addStudent(student1);
@@ -86,6 +90,49 @@ public class Main {
 		
 		System.out.println(student13);
 		
+		
+		
+		File folderIn = new File("../Lesson");
+		File folderOut = new File(".");		
+	
+		try {
+			GroupFileStorage.СopyFilesWithSpecifiedExtension(folderIn, folderOut, "csv");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
+		
+		try {
+			GroupFileStorage.saveGroupToCSV(group1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		File file = new File("second.csv");
+		Group group2 = new Group();
+		group2.setGroupName("second");
+		
+		try {
+			group2 = GroupFileStorage.loadGroupFromCSV(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		System.out.println(group2);	
+		
+		
+		
+		File workFolder	= new File(".");	
+		try {
+			File serchFile = GroupFileStorage.findFileByGroupName("first", workFolder);
+			System.out.println(GroupFileStorage.loadGroupFromCSV(serchFile));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(group2.getStudens().toString());
 		
 	}
 }

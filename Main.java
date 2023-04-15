@@ -132,4 +132,5 @@ public class Main {
 				+ group2.isEqualsStudents());
 
 	}
+	
 }

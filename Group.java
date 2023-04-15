@@ -76,8 +76,7 @@ public class Group {
 			}			
 		}		
 		return false;	
-	}
-	
+	}	
 
 	@Override
 	public String toString() {

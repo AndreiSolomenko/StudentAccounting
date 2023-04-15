@@ -56,8 +56,5 @@ public class Student extends Human {
 			return false;
 		Student other = (Student) obj;
 		return Objects.equals(groupName, other.groupName) && id == other.id;
-	}	
-	
-	
-	
+	}		
 }

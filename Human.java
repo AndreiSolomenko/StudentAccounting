@@ -64,4 +64,5 @@ public class Human {
 		Human other = (Human) obj;
 		return gender == other.gender && Objects.equals(lastName, other.lastName) && Objects.equals(name, other.name);
 	}	
+	
 }

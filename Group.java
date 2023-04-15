@@ -2,12 +2,19 @@ package homework;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Group {
 	
 	private String groupName;	
-	private final Student[] students;
+	private final Student[] students;	
 	
+	public Group(String groupName) {
+		super();
+		this.groupName = groupName;
+		this.students = new Student[10];
+	}
+
 	public Group() {
 		super();
 		students = new Student[10];
@@ -57,6 +64,20 @@ public class Group {
 		}	
 		return false;
 	}
+	
+	public boolean isEqualsStudents() {
+		for (int i = 0; i < students.length; i++) {
+			for (int j = i + 1; j < students.length; j++) {
+				if (students[i] != null && students[j] != null) {
+					if (students[i].equals(students[j])) {
+						return true;
+					}					
+				}
+			}			
+		}		
+		return false;	
+	}
+	
 
 	@Override
 	public String toString() {
@@ -70,4 +91,25 @@ public class Group {
 		}
 		return res;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(students);
+		result = prime * result + Objects.hash(groupName);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Group other = (Group) obj;
+		return Objects.equals(groupName, other.groupName) && Arrays.equals(students, other.students);
+	}	
 }

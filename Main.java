@@ -22,22 +22,17 @@ public class Main {
 		Group group1 = new Group();
 		group1.setGroupName("first");
 
-		try {
-			group1.addStudent(student1);
-			group1.addStudent(student2);
-			group1.addStudent(student3);
-			group1.addStudent(student4);
-			group1.addStudent(student5);
-			group1.addStudent(student6);
-			group1.addStudent(student7);
-			group1.addStudent(student8);
-			group1.addStudent(student9);
-			group1.addStudent(student10);
-			group1.addStudent(student11);
-		} catch (GroupOverflowException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		group1.addStudent(student1);
+		group1.addStudent(student2);
+		group1.addStudent(student3);
+		group1.addStudent(student4);
+		group1.addStudent(student5);
+		group1.addStudent(student6);
+		group1.addStudent(student7);
+		group1.addStudent(student8);
+		group1.addStudent(student9);
+		group1.addStudent(student10);
+		group1.addStudent(student11);
 
 		System.out.println(group1);		
 
@@ -58,12 +53,7 @@ public class Main {
 		System.out.println("The student with the specified id has been deleted: " + group1.removeStudentByID(6));
 		System.out.println("The student with the specified id has been deleted: " + group1.removeStudentByID(8));
 
-		try {
-			group1.addStudent(student11);
-		} catch (GroupOverflowException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		group1.addStudent(student11);
 		System.out.println(group1);
 
 		StudentRegistration registration1 = new StudentRegistration();

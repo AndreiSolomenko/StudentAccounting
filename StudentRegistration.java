@@ -38,7 +38,7 @@ public class StudentRegistration {
 	public static void createStudentAccountAndAddToGroup(Group group) throws WrongValueException {
 		try {
 			group.addStudent(createStudentAccount());
-		} catch (GroupOverflowException e) {
+		} catch (WrongValueException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

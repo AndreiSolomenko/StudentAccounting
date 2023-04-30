@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class CSVStringConverter implements StringConverter {
 	
-	File file;
+	private File file;
 	
 	public void saveToCSVfile(Student student) {
 		file = new File("New student.csv");
@@ -36,7 +36,7 @@ public class CSVStringConverter implements StringConverter {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return res;
+		return res.substring(0, res.length() - 1);
 	}
 
 	@Override

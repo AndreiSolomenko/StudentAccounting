@@ -1,23 +1,25 @@
 package homework;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
+
+import homeworknine.Pair;
 
 public class Group {
 	
 	private String groupName;	
-	private final Student[] students;	
+	private final List<Student> students = new ArrayList<>();	
 	
 	public Group(String groupName) {
 		super();
 		this.groupName = groupName;
-		this.students = new Student[10];
 	}
 
 	public Group() {
-		super();
-		students = new Student[10];
 	}
 
 	public String getGroupName() {
@@ -28,76 +30,77 @@ public class Group {
 		this.groupName = groupName;
 	}
 
-	public Student[] getStudens() {
+	public List<Student> getStudens() {
 		return students;
 	}
 	
-	public void addStudent(Student student) throws GroupOverflowException {
-		for (int i = 0; i < students.length; i++) {
-			if (students[i] == null) {
-				students[i] = student;				
-				return;
-			}
-		}
-		throw new GroupOverflowException("Group is full");
+	public void addStudent(Student student) {
+		if (students.size()<10) {
+			students.add(student);				
+			return;
+		} 
+		System.out.println("Group is full");
 	}
 	
 	public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
-		for (int i = 0; i < students.length; i++) {
-			if (students[i] != null) {				
-				if (students[i].getLastName().equals(lastName)) {
-					return students[i];					
-				}					
+		for (Student student : students) {			
+			if (student.getLastName().equals(lastName)) {
+				return student;	
 			}
 		}
 		throw new StudentNotFoundException("No student found for the specified last name");
 	}	
 	
 	public boolean removeStudentByID(int id) {
-		for (int i = 0; i < students.length; i++) {
-			if (students[i] != null) {
-				if (students[i].getId() == id) {
-					students[i] = null;
-					return true;					
-				}				
-			}			
+		for (Student student : students) {
+			if (student.getId() == id) {
+				students.remove(student);
+				return true;					
+			}	
 		}	
 		return false;
 	}
-	
-	public boolean isEqualsStudents() {
-		for (int i = 0; i < students.length; i++) {
-			for (int j = i + 1; j < students.length; j++) {
-				if (students[i] != null && students[j] != null) {
-					if (students[i].equals(students[j])) {
-						return true;
-					}					
+
+	public boolean isEqualsStudents() {	
+		for (Student student : students) {
+			int repeat = 0;
+			for (Student student2 : students) {
+				if (student.equals(student2)) {
+					repeat++;
+					if (repeat > 1) {
+						return true;					
+					}
 				}
-			}			
-		}		
+			}				
+		}
 		return false;	
 	}	
-
+	
 	@Override
 	public String toString() {
-		Arrays.sort(students, Comparator.nullsFirst(new StudentsNameComparator()));
+		
+		Collections.sort(students, new Comparator<Human>() {
+			public int compare(Human o1, Human o2) {
+				if (o1.getLastName().compareTo((o2.getLastName())) < 0) {
+					return -1;
+				} else if (o1.getLastName().equals((o2.getLastName()))) {
+					return 0;
+				} else {
+					return 1;
+				}	
+			}
+		});
 
 		String res = "Group list" + System.lineSeparator();
-		for (int i = 0; i < students.length; i++) {
-			if (students[i] != null) {
-				res += students[i] + System.lineSeparator();
-			}
+		for (Student student : students) {
+			res += student + System.lineSeparator();
 		}
-		return res;
+		return res.substring(0, res.length() - 1);
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(students);
-		result = prime * result + Objects.hash(groupName);
-		return result;
+		return Objects.hash(groupName, students);
 	}
 
 	@Override
@@ -109,6 +112,9 @@ public class Group {
 		if (getClass() != obj.getClass())
 			return false;
 		Group other = (Group) obj;
-		return Objects.equals(groupName, other.groupName) && Arrays.equals(students, other.students);
-	}	
+		return Objects.equals(groupName, other.groupName) && Objects.equals(students, other.students);
+	}
+
+	
+	
 }

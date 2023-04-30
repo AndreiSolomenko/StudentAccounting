@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Scanner;
 
 public class GroupFileStorage {
@@ -32,16 +33,19 @@ public class GroupFileStorage {
 	}
 	
 	public static void saveGroupToCSV(Group gr) throws IOException {
-		Student[] students = gr.getStudens();
-		File file = new File(gr.getGroupName() + ".csv");
-		String del = ",";			
+		
+		List<Student> students = gr.getStudens();
+		File file = new File(gr.getGroupName() + ".csv");		
+		String del = ",";		
+		String temp = "";
+		
 		try (PrintWriter pw = new PrintWriter(file)) {
-			for (int i = 0; i < students.length; i++) {
-				if (students[i] != null) {
-					pw.println(students[i].getName() + del + students[i].getLastName() 
-						+ del + students[i].getGender() + del + students[i].getId() 
-						+ del + students[i].getGroupName());					
-				}				
+			for (Student student : students) {
+				temp = student.getName() + del + student.getLastName() 
+				+ del + student.getGender() + del + student.getId() 
+				+ del + student.getGroupName();
+				pw.println(temp);	
+
 			}						
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,17 +54,13 @@ public class GroupFileStorage {
 	
 	public static Group loadGroupFromCSV(File file) throws IOException {
 		Group group = new Group();
-		CSVStringConverter csvStrConv = new CSVStringConverter();		
+		CSVStringConverter csvStrConv = new CSVStringConverter();
 		try (Scanner sc = new Scanner(file)) {
 			for (; sc.hasNextLine(); ) {
-				String tmp = sc.nextLine() + System.lineSeparator();	
+				String tmp = (sc.nextLine() + System.lineSeparator());	
+				tmp = tmp.substring(0, tmp.length() - 1);
 				Student student = csvStrConv.fromStringRepresentation(tmp);
-				try {
-					group.addStudent(student);
-				} catch (GroupOverflowException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				group.addStudent(student);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
